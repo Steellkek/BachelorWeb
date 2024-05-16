@@ -21,5 +21,7 @@ public class FunctionalBlock
     
     internal  virtual List<Ems> ValueEms1 { get; set; }
     internal  virtual List<Ems> ValueEms2 { get; set; }
+    
+    internal  virtual List<HardPartPcb> HardPartsPcb { get; set; }
 
 }

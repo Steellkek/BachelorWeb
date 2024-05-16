@@ -23,6 +23,7 @@ public class StartUp
         services.AddTransient<IConnectionComponentRepository, ConnectionComponentRepository>();
         services.AddTransient<IFunctionalBlockRepository, FunctionalBlockRepository>();
         services.AddTransient<IEmsRepository, EmsRepository>();
+        services.AddTransient<IPcbRepository, PcbRepository>();
         services.AddDbContext<LayoutContext>(options => options.UseNpgsql(connection));
         
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -12,6 +12,8 @@ public class Project
     [Column("created_on")]
     public DateTime CreatedOn { get; set; }
     
+    public List<PCB> Pcb { get; set; }
+    
     internal List<ComponentPcb> Components { get; set; }
     
     internal List<ConnectionComponent> ConnectionsComponent { get; set; }
@@ -19,4 +21,6 @@ public class Project
     internal List<FunctionalBlock> FunctionalBlocks { get; set; }
     
     internal List<Ems> Ems { get; set; }
+    
+    internal List<Solution> Solutions { get; set; }
 }
