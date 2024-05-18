@@ -14,7 +14,11 @@ public class FunctionalBlockRepository : IFunctionalBlockRepository
     }
     public IEnumerable<FunctionalBlock> GetList()
     {
-        return _context.FunctionalBlocks.Include(x=>x.ComponentsPcb);
+        return _context.FunctionalBlocks
+            .Include(x => x.ComponentsPcb)
+            .ThenInclude(x => x.ConnectionComponents1)
+            .Include(x => x.ComponentsPcb)
+            .ThenInclude(x => x.ConnectionComponents2);
     }
 
     public FunctionalBlock Get(long id)

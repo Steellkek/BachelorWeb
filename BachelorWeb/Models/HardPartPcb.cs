@@ -18,5 +18,5 @@ public class HardPartPcb
     
     internal List<FlexPartPcb> FlexPartsPcb2 { get; set; }
     
-    internal List<FunctionalBlock> FunctionalBlocks { get; set; }
+    public List<FunctionalBlock> FunctionalBlocks { get; set; } = new List<FunctionalBlock>();
 }

@@ -67,6 +67,16 @@ public class LayoutContext: DbContext
             .WithMany(x => x.ConnectionComponents2)
             .HasForeignKey(x => x.ComponentPcb2Id);
         
+        modelBuilder.Entity<FlexPartPcb>()
+            .HasOne(x => x.HardPartPcb1)
+            .WithMany(x => x.FlexPartsPcb1)
+            .HasForeignKey(x => x.HardPartPcb1Id);
+        
+        modelBuilder.Entity<FlexPartPcb>()
+            .HasOne(x => x.HardPartPcb2)
+            .WithMany(x => x.FlexPartsPcb2)
+            .HasForeignKey(x => x.HardPartPcb2Id);
+        
         modelBuilder.Entity<Ems>()
             .HasOne(x => x.FunctionalBlock1)
             .WithMany(x => x.ValueEms1)

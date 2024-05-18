@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace BachelorWeb.Models;
 
 public class FunctionalBlock
 {
     [Column("id")]
-    public long? Id { get; set; }
+    public long Id { get; set; }
     
     [Column("name")]
     public string Name { get; set; }

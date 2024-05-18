@@ -4,31 +4,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BachelorWeb.Repository;
 
-public class PcbRepository : IPcbRepository
+public class FlexPartPcbRepository : IFlexPartPcbRepository
 {
     private LayoutContext _context;
 
-    public PcbRepository(LayoutContext context)
+    public FlexPartPcbRepository(LayoutContext context)
     {
         _context = context;
     }
-    
-    public IEnumerable<PCB> GetList()
+    public IEnumerable<FlexPartPcb> GetList()
     {
         throw new NotImplementedException();
     }
 
-    public PCB Get(long id)
+    public FlexPartPcb Get(long id)
     {
         throw new NotImplementedException();
     }
 
-    public void Create(PCB item)
+    public void Create(FlexPartPcb item)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(PCB item)
+    public void Update(FlexPartPcb item)
     {
         throw new NotImplementedException();
     }
@@ -43,12 +42,11 @@ public class PcbRepository : IPcbRepository
         throw new NotImplementedException();
     }
 
-    public PCB GetByProjectId(long projectId)
+    public IEnumerable<FlexPartPcb> GetListByPcbId(long pcbId)
     {
-        var x = _context
-            .Pcbs
-            .FirstOrDefault(x => x.ProjectId == projectId);
-
-        return x;
+        return _context.FlexPartsPcb
+            .Include(x=> x.HardPartPcb1)
+            .Include(x=>x.HardPartPcb2)
+            .Where(x => x.PcbId == pcbId);
     }
 }
