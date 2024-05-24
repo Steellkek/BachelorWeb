@@ -13,6 +13,21 @@ public class HardPartPcb
     public long? PcbId { get; set; }
 
     internal PCB Pcb { get; set; }
+
+    public Point P1;
+    public Point P2;
+
+    [Column("width")]
+    public double Width { get; set; }
+    
+    [Column("height")]
+    public double Height { get; set; }
+    
+    [Column("x")]
+    public double X { get; set; }
+    
+    [Column("y")]
+    public double Y { get; set; }
     
     internal List<FlexPartPcb> FlexPartsPcb1 { get; set; }
     

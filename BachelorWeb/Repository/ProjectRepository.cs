@@ -19,7 +19,7 @@ public class ProjectRepository : IRepository<Project>
 
     public Project Get(long id)
     {
-        throw new NotImplementedException();
+        return _context.Projects.FirstOrDefault(x => x.Id == id);
     }
 
     public void Create(Project item)

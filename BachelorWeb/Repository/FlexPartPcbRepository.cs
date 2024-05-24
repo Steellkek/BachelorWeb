@@ -24,7 +24,8 @@ public class FlexPartPcbRepository : IFlexPartPcbRepository
 
     public void Create(FlexPartPcb item)
     {
-        throw new NotImplementedException();
+        _context.FlexPartsPcb.Add(item);
+        _context.SaveChanges();
     }
 
     public void Update(FlexPartPcb item)

@@ -25,7 +25,8 @@ public class PcbRepository : IPcbRepository
 
     public void Create(PCB item)
     {
-        throw new NotImplementedException();
+        _context.Pcbs.Add(item);
+        _context.SaveChanges();
     }
 
     public void Update(PCB item)
@@ -50,5 +51,10 @@ public class PcbRepository : IPcbRepository
             .FirstOrDefault(x => x.ProjectId == projectId);
 
         return x;
+    }
+
+    public void DeleteByProjectId(long projectId)
+    {
+        _context.Pcbs.Where(x => x.ProjectId == projectId).ExecuteDelete();
     }
 }

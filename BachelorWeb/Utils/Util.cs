@@ -23,7 +23,7 @@ public static class Util
         return newElements;
     }
 
-    public static void Shuffle<T>(List<T> list)
+    public static List<T> Shuffle<T>(List<T> list)
     {
         var rand = new Random();
         for (int i = list.Count - 1; i >= 1; i--)
@@ -31,6 +31,8 @@ public static class Util
             int j = rand.Next(i + 1);
             (list[j], list[i]) = (list[i], list[j]);
         }
+
+        return list;
     }
 
     public static List<List<int>> FromListToMatrix(PCB pcb)
