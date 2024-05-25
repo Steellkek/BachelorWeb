@@ -317,7 +317,7 @@ public static class FileUtil
                 x = ((double)hardPart.Width / (double)2)+ hardPart.X;
                 componentPcbFile.Attributes["Location"].InnerText = (x + ";" + y).Replace(',', '.');
             }
-            doc.Save(nameFile+1);
+            doc.Save(nameFile);
         }
     }
 }
