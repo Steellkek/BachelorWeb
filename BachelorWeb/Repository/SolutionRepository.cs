@@ -1,5 +1,6 @@
 ﻿using BachelorWeb.Intarfaces;
 using BachelorWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BachelorWeb.Repository;
 
@@ -67,5 +68,10 @@ public class SolutionRepository : ISolutionRepository
     public Solution GetByProjectId(long projectId)
     {
         return _context.Solutions.FirstOrDefault(x => x.ProjectId == projectId);
+    }
+
+    public void DeleteByProjectId(long projectId)
+    {
+        _context.Solutions.Where(x => x.ProjectId == projectId).ExecuteDelete();
     }
 }

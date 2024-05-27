@@ -11,14 +11,17 @@ public class SchemaController : Controller
     private readonly IComponentPcbRepository _componentsPcb;
     private readonly IConnectionComponentRepository _connectionComponentRepository;
     private readonly IFunctionalBlockRepository _functionalBlockRepository;
+    private readonly ISolutionRepository _solutionRepository;
     
     public SchemaController( IComponentPcbRepository componentsPcb, 
         IConnectionComponentRepository connectionComponentRepository,
-        IFunctionalBlockRepository functionalBlockRepository)
+        IFunctionalBlockRepository functionalBlockRepository, 
+        ISolutionRepository solutionRepository)
     {
         _componentsPcb = componentsPcb;
         _connectionComponentRepository = connectionComponentRepository;
         _functionalBlockRepository = functionalBlockRepository;
+        _solutionRepository = solutionRepository;
     }
 
 
@@ -81,7 +84,15 @@ public class SchemaController : Controller
     [HttpPost("GetComponents")]
     public Task<List<ComponentPcb>> GetComponents([FromBody]long projectId)
     {
-        var x = _componentsPcb.GetListByProjectId(projectId).ToList();
-        return Task.FromResult(x);
+        var list = _componentsPcb.GetListByProjectId(projectId).ToList();
+        return Task.FromResult(list);
+    }
+    
+    [HttpPost("UpdateComponent")]
+    public bool UpdateComponent([FromBody]ComponentPcb componentPcb)
+    {
+        _componentsPcb.Update(componentPcb);
+        _solutionRepository.DeleteByProjectId((long) componentPcb.ProjectId);
+        return true;
     }
 }

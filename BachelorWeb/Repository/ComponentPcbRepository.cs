@@ -31,7 +31,11 @@ public class ComponentPcbRepository : IComponentPcbRepository
 
     public void Update(ComponentPcb item)
     {
-        throw new NotImplementedException();
+        var comp = _context.Components.First(x=> x.Id == item.Id);
+        comp.Height = item.Height;
+        comp.Width = item.Width;
+        _context.Components.Update(comp);
+        _context.SaveChanges();
     }
 
     public void Delete(long id)
