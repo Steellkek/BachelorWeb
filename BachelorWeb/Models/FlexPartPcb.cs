@@ -23,6 +23,9 @@ public class FlexPartPcb
     public long? HardPartPcb2Id { get; set; }
     public HardPartPcb HardPartPcb2 { get; set; }
     
+    [Column("value")]
+    public int Value { get; set; }
+    
     public Point P1;
     public Point P2;
 }

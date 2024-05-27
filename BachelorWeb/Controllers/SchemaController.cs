@@ -77,4 +77,11 @@ public class SchemaController : Controller
             .Delete(functionalBlockId);
         return Task.FromResult(1);
     }
+    
+    [HttpPost("GetComponents")]
+    public Task<List<ComponentPcb>> GetComponents([FromBody]long projectId)
+    {
+        var x = _componentsPcb.GetListByProjectId(projectId).ToList();
+        return Task.FromResult(x);
+    }
 }

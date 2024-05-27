@@ -171,6 +171,8 @@ public class GenAlg
     {
         var genomeCopy = Util.Clone(genome);
         var list3 = Util.Clone(genome.EncodedIndivid);
+        list3.Reverse();
+        
         foreach (var hardPartPcb in genomeCopy.DecodedIndivid)
         {
             hardPartPcb.FunctionalBlocks.Clear();
@@ -180,7 +182,7 @@ public class GenAlg
         for (int i = list3.Count-1; i >=0; i--)
         {
             var isEnd1 = true;
-            for(int k = h; k < genomeCopy.DecodedIndivid.Count; k++)
+            for(int k = 0; k < genomeCopy.DecodedIndivid.Count; k++)
             {
                 var sumSquareComponents = list3[i].ComponentsPcb.Sum(y => y.Square());
                 var sumSquareHardPart = genomeCopy.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -194,9 +196,12 @@ public class GenAlg
                 }
             }
 
-            if (isEnd1)
+            if (!isEnd1)
             {
-                h = 0;
+                for (int l = 0; l < h; l++)
+                {
+                    genomeCopy.DecodedIndivid = Util.LeftSHuffle(genomeCopy.DecodedIndivid);
+                }
             }
         }
         
@@ -223,7 +228,7 @@ public class GenAlg
             for (int i = list3.Count-1; i >=0; i--)
             {
                 var isEnd2 = true;
-                for(int k = g; k >=0; k--)
+                for(int k = genomeCopy.DecodedIndivid.Count - 1; k >=0; k--)
                 {
                     var sumSquareComponents = list3[i].ComponentsPcb.Sum(y => y.Square());
                     var sumSquareHardPart = genomeCopy.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -237,9 +242,12 @@ public class GenAlg
                     }
                 }
 
-                if (isEnd2)
+                if (!isEnd2)
                 {
-                    g = genomeCopy.DecodedIndivid.Count - 1;
+                    for (int l = 0; l < genomeCopy.DecodedIndivid.Count - 1 - g; l++)
+                    {
+                        genomeCopy.DecodedIndivid = Util.LeftSHuffle(genomeCopy.DecodedIndivid);
+                    }
                 }
             }
         }
@@ -295,7 +303,7 @@ public class GenAlg
             for (int i = list3.Count-1; i >=0; i--)
             {
                 var isEnd1 = true;
-                for(int k = h; k < genomeCopy.DecodedIndivid.Count; k++)
+                for(int k = 0; k < genomeCopy.DecodedIndivid.Count; k++)
                 {
                     var sumSquareComponents = list3[i].ComponentsPcb.Sum(y => y.Square());
                     var sumSquareHardPart = genomeCopy.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -309,9 +317,12 @@ public class GenAlg
                     }
                 }
 
-                if (isEnd1)
+                if (!isEnd1)
                 {
-                    h = 0;
+                    for (int l = 0; l < h; l++)
+                    {
+                        genomeCopy.DecodedIndivid = Util.LeftSHuffle(genomeCopy.DecodedIndivid);
+                    }
                 }
             }
             
@@ -338,7 +349,7 @@ public class GenAlg
                 for (int i = list3.Count-1; i >=0; i--)
                 {
                     var isEnd2 = true;
-                    for(int k = g; k >=0; k--)
+                    for(int k = genomeCopy.DecodedIndivid.Count - 1; k >=0; k--)
                     {
                         var sumSquareComponents = list3[i].ComponentsPcb.Sum(y => y.Square());
                         var sumSquareHardPart = genomeCopy.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -352,9 +363,12 @@ public class GenAlg
                         }
                     }
 
-                    if (isEnd2)
+                    if (!isEnd2)
                     {
-                        g = genomeCopy.DecodedIndivid.Count - 1;
+                        for (int l = 0; l < genomeCopy.DecodedIndivid.Count - 1 - g; l++)
+                        {
+                            genomeCopy.DecodedIndivid = Util.LeftSHuffle(genomeCopy.DecodedIndivid);
+                        }
                     }
                 }
             }
@@ -449,7 +463,7 @@ public class GenAlg
         for (int i = list3.Count-1; i >=0; i--)
         {
             var isEnd1 = true;
-            for(int k = h; k < genomeCopy.DecodedIndivid.Count; k++)
+            for(int k = 0; k < genomeCopy.DecodedIndivid.Count; k++)
             {
                 var sumSquareComponents = list3[i].ComponentsPcb.Sum(y => y.Square());
                 var sumSquareHardPart = genomeCopy.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -465,7 +479,10 @@ public class GenAlg
 
             if (isEnd1)
             {
-                h = 0;
+                for (int j = 0; j < h; j++)
+                {
+                    genome.DecodedIndivid = Util.LeftSHuffle(genome.DecodedIndivid);
+                }
             }
         }
             
@@ -644,7 +661,7 @@ public class GenAlg
             for (int i = functionalBlocksCopy.Count-1; i >=0; i--)
             {
                 var isEnd1 = true;
-                for(int k = h; k < genome.DecodedIndivid.Count; k++)
+                for(int k = 0; k < genome.DecodedIndivid.Count; k++)
                 {
                     var sumSquareComponents = functionalBlocksCopy[i].ComponentsPcb.Sum(y => y.Square());
                     var sumSquareHardPart = genome.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -658,9 +675,12 @@ public class GenAlg
                     }
                 }
 
-                if (isEnd1)
+                if (!isEnd1)
                 {
-                    h = 0;
+                    for (int j = 0; j < h; j++)
+                    {
+                        genome.DecodedIndivid = Util.LeftSHuffle(genome.DecodedIndivid);
+                    }
                 }
             }
 
@@ -686,7 +706,7 @@ public class GenAlg
                 for (int i = functionalBlocksCopy.Count-1; i >=0; i--)
                 {                    
                     var isEnd2 = true;
-                    for(int k = g; k >=0; k--)
+                    for(int k = genome.DecodedIndivid.Count - 1; k >=0; k--)
                     {
                         var sumSquareComponents = functionalBlocksCopy[i].ComponentsPcb.Sum(y => y.Square());
                         var sumSquareHardPart = genome.DecodedIndivid[k].FunctionalBlocks.Sum(x => x.ComponentsPcb.Sum(y => y.Square()));
@@ -700,9 +720,12 @@ public class GenAlg
                         }
                     }
 
-                    if (isEnd2)
+                    if (!isEnd2)
                     {
-                        g = genome.DecodedIndivid.Count - 1;
+                        for (int j = 0; j < genome.DecodedIndivid.Count - 1 - g; j++)
+                        {
+                            genome.DecodedIndivid = Util.LeftSHuffle(genome.DecodedIndivid);
+                        }
                     }
                 }
             }
@@ -796,5 +819,54 @@ public class GenAlg
         }
 
         return vert;
+    }
+
+    public List<FlexPartPcb> GetConnectionsHardPart(Genome genome)
+    {
+        foreach (var flexPartPcb in _pcb.FlexPartsPcb)
+        {
+            flexPartPcb.Value = 0;
+        }
+        for (int i = 0; i < genome.DecodedIndivid.Count; i++)
+        {
+            for (int j = i + 1; j < genome.DecodedIndivid.Count; j++)
+            {
+                var comp1 = genome.DecodedIndivid[i].FunctionalBlocks
+                    .Select(x => x.ComponentsPcb)
+                    .SelectMany(x => x)
+                    .Select(x=> x.Id)
+                    .ToList();
+                var comp2 = genome.DecodedIndivid[j].FunctionalBlocks
+                    .Select(x => x.ComponentsPcb)
+                    .SelectMany(x => x)
+                    .Select(x=> x.Id)
+                    .ToList();
+                var x = _connectionComponents.Where(x =>
+                    comp1.Contains((long)x.ComponentPcb1Id)
+                    && comp2.Contains((long)x.ComponentPcb2Id) ||
+                    (comp2.Contains((long)x.ComponentPcb1Id)
+                     && comp1.Contains((long)x.ComponentPcb2Id)));
+                var count = _connectionComponents.Where(x =>
+                    comp1.Contains((long)x.ComponentPcb1Id)
+                    && comp2.Contains((long)x.ComponentPcb2Id) ||
+                    (comp2.Contains((long)x.ComponentPcb1Id)
+                     && comp1.Contains((long)x.ComponentPcb2Id)))
+                    .Sum(x=> x.CountConnection);
+                var path = _minPaths.First(x =>
+                    (x[0] == genome.DecodedIndivid[i].Id &&
+                     x[x.Count - 1] == genome.DecodedIndivid[j].Id) ||
+                    (x[0] == genome.DecodedIndivid[j].Id &&
+                     x[x.Count - 1] == genome.DecodedIndivid[i].Id));
+                for (int k = 0; k < path.Count - 1; k++)
+                {
+                    _pcb.FlexPartsPcb.First(x => (x.HardPartPcb1Id == path[k] &&
+                                                  x.HardPartPcb2Id == path[k + 1]) ||
+                                                 (x.HardPartPcb1Id == path[k] &&
+                                                  x.HardPartPcb2Id == path[k + 1])).Value += (int)count;
+                }
+            }
+        }
+
+        return _pcb.FlexPartsPcb;
     }
 }

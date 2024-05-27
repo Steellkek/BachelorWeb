@@ -30,7 +30,8 @@ public class FlexPartPcbRepository : IFlexPartPcbRepository
 
     public void Update(FlexPartPcb item)
     {
-        throw new NotImplementedException();
+        _context.FlexPartsPcb.Update(item);
+        _context.SaveChanges();
     }
 
     public void Delete(long id)

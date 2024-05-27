@@ -48,6 +48,8 @@ public class HardPartPcbRepository : IHardPartPcbRepository
         return _context.HardPartsPcb
             .Include(x=> x.FlexPartsPcb1)
             .Include(x=> x.FlexPartsPcb1)
+            .Include(x => x.FunctionalBlocks)
+            .ThenInclude(x => x.ComponentsPcb)
             .Where(x => x.PcbId == pcbId);
     }
 

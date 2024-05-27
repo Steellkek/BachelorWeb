@@ -33,5 +33,5 @@ public class HardPartPcb
     
     internal List<FlexPartPcb> FlexPartsPcb2 { get; set; }
     
-    public List<FunctionalBlock> FunctionalBlocks { get; set; } = new List<FunctionalBlock>();
+    public virtual List<FunctionalBlock> FunctionalBlocks { get; set; } = new List<FunctionalBlock>();
 }

@@ -63,4 +63,9 @@ public class SolutionRepository : ISolutionRepository
 
         _context.SaveChanges();
     }
+
+    public Solution GetByProjectId(long projectId)
+    {
+        return _context.Solutions.FirstOrDefault(x => x.ProjectId == projectId);
+    }
 }

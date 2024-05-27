@@ -56,8 +56,11 @@ public class SolutionController: Controller
         solution.CriteriaEms = population.BestGenome.FitnessEms;
         solution.CriteriaIntermodule = population.BestGenome.FitnessInterModule;
         _solutionRepository.CreateOrUpdate(solution);
-        
-        
+        var flexPartPcbs= genAlg.GetConnectionsHardPart(population.BestGenome);
+        foreach (var flexPartPcb in flexPartPcbs)
+        {
+            _flexPartPcbRepository.Update(flexPartPcb);
+        }
         string uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "Files");
         
         string filePath = Path.Combine(uploads, solution.ProjectId.ToString());
@@ -75,5 +78,33 @@ public class SolutionController: Controller
         var stream = System.IO.File.OpenRead(filePath);
         return File(stream, "application/force-download", Path.GetFileName(filePath) + ".DDC");
 
+    }
+
+    [HttpPost("GetSolution")]
+    public Task<ActionResult<Tuple<List<HardPartPcb>, List<FlexPartPcb>, List<ConnectionComponent>>>> GetSolution([FromBody] long projectId)
+    {
+        var solution = _solutionRepository.GetByProjectId(projectId);
+        if (solution == null)
+        {
+            return null;
+        }
+        var pcb = _pcbRepository.GetByProjectId(projectId);
+        var l = _hardPartPcbRepository.GetListByPcbId(pcb.Id).ToList();
+        var g = _flexPartPcbRepository.GetListByPcbId(pcb.Id).ToList();
+        var m = _connectionComponentRepository.GetListByProjectId(projectId).ToList();
+        var list = new List<ConnectionComponent>();
+        foreach (var hardPartPcb in l)
+        {
+            var b = hardPartPcb.FunctionalBlocks.SelectMany(x => x.ComponentsPcb).Select(x=> x.Id).ToList();
+            foreach (var connectionComponent in m)
+            {
+                if (b.Contains((long)connectionComponent.ComponentPcb1Id) && b.Contains((long)connectionComponent.ComponentPcb2Id))
+                {
+                    list.Add(connectionComponent);
+                }
+            }
+            
+        }
+        return Task.FromResult<ActionResult<Tuple<List<HardPartPcb>, List<FlexPartPcb>, List<ConnectionComponent>>>>(new Tuple<List<HardPartPcb>, List<FlexPartPcb>, List<ConnectionComponent>>(l, g, list));
     }
 }
