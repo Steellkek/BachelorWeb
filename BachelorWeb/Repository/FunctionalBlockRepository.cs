@@ -52,4 +52,9 @@ public class FunctionalBlockRepository : IFunctionalBlockRepository
     {
         return _context.FunctionalBlocks.FirstOrDefault(x => x.ProjectId == projectId && x.Name == name);
     }
+
+    public void DeleteByProjectId(long projectId)
+    {
+        _context.FunctionalBlocks.Where(x => x.ProjectId == projectId).ExecuteDelete();
+    }
 }

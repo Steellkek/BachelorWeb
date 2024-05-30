@@ -22,6 +22,10 @@ public class PcbController : ControllerBase
     public Task<ActionResult<Tuple<PCB,List<HardPartPcb>, List<FlexPartPcb>>>> GetPcb([FromBody]long projectId)
     {
         var pcb = _pcbRepository.GetByProjectId(projectId);
+        if (pcb == null)
+        {
+            return Task.FromResult<ActionResult<Tuple<PCB,List<HardPartPcb>, List<FlexPartPcb>>>>(new Tuple<PCB, List<HardPartPcb>, List<FlexPartPcb>>(null, null, null));
+        }
         var l = _hardPartPcbRepository.GetListByPcbId(pcb.Id).ToList();
         var g = _flexPartPcbRepository.GetListByPcbId(pcb.Id).ToList();
         pcb.HardPartsPcb = l.ToList();

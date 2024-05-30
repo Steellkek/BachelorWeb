@@ -86,7 +86,8 @@ public class SolutionController: Controller
         var solution = _solutionRepository.GetByProjectId(projectId);
         if (solution == null)
         {
-            return null;
+            return Task.FromResult<ActionResult<Tuple<List<HardPartPcb>, List<FlexPartPcb>, List<ConnectionComponent>>>>(new Tuple<List<HardPartPcb>, List<FlexPartPcb>, List<ConnectionComponent>>(new List<HardPartPcb>(), new List<FlexPartPcb>(), new List<ConnectionComponent>()));
+
         }
         var pcb = _pcbRepository.GetByProjectId(projectId);
         var l = _hardPartPcbRepository.GetListByPcbId(pcb.Id).ToList();

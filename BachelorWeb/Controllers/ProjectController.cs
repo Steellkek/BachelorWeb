@@ -16,6 +16,7 @@ public class ProjectController : ControllerBase
     private readonly IPcbRepository _pcb;
     private readonly IHardPartPcbRepository _hardPartPcb;
     private readonly IFlexPartPcbRepository _flexPartPcb;
+    private readonly IFunctionalBlockRepository _functionalBlockRepository;
     private IWebHostEnvironment _hostingEnvironment;
     
     public ProjectController(IRepository<Project>  projects, 
@@ -23,7 +24,8 @@ public class ProjectController : ControllerBase
         IConnectionComponentRepository connectionComponentRepository,
         IPcbRepository pcbRepository,
         IHardPartPcbRepository hardPartPcbRepository,
-        IFlexPartPcbRepository flexPartPcb, IWebHostEnvironment hostingEnvironment)
+        IFlexPartPcbRepository flexPartPcb, IWebHostEnvironment hostingEnvironment, 
+        IFunctionalBlockRepository functionalBlockRepository)
     {
         _projects = projects;
         _componentsPcb = componentsPcb;
@@ -32,6 +34,7 @@ public class ProjectController : ControllerBase
         _hardPartPcb = hardPartPcbRepository;
         _flexPartPcb = flexPartPcb;
         _hostingEnvironment = hostingEnvironment;
+        _functionalBlockRepository = functionalBlockRepository;
     }
     
     [HttpPost("CreateProject")]
@@ -111,7 +114,8 @@ public class ProjectController : ControllerBase
                 file.CopyTo(fileStream);
             }
         }
-        
+
+        _functionalBlockRepository.DeleteByProjectId(projectId);
         return Task.FromResult<ActionResult<int>>(1);
     }
 
