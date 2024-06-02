@@ -51,17 +51,17 @@ public class StartUp
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        
         app.UseCors(x => x
             .SetIsOriginAllowed(_ => true)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
-        
 
         app.UseHttpsRedirection();
 
-        app.UseRouting();
-        
         app.UseRouting();
 
         app.UseEndpoints(endpoints =>
